@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>100天</title>
+        <style>
+            body {
+                margin:0;
+            }
+            .container {
+                height: 100vh;
+                background: #fae1dd;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                position: relative;
+            }
+
+            .valentine {
+                position: relative;
+                animation: up 3s linear infinite;
+                cursor: pointer;
+            }
+
+            @keyframes up {
+                0%,100% {
+                    transform: translateY(0);
+                }
+                50%{
+                    transform: translateY(-50px);
+                }
+            }
+
+            .envelope {
+                width:450px;
+                height:300px;
+                background-color: #f08080;
+                position: relative;
+            }
+
+            .envelope::before {
+                content:"";
+                width:318px;
+                height:318px;
+                background-color: #f08080;
+                position: absolute;
+                transform: rotate(-45deg);
+                transform-origin: 0 0;
+                border-top-right-radius: 30px;
+            }
+
+            .front {
+                width:0;
+                height:0;
+                border-top:143px solid transparent;
+                border-bottom:150px solid transparent;
+                border-right:270px solid #f4978e;
+                position: absolute;
+                top:6px;
+                left:180px;
+            }
+
+            .front::before {
+                content:"";
+                position: absolute;
+                width:0;
+                height: 0;
+                border-top:293px solid transparent;
+                border-left:450px solid #f8ad9d;
+                top:-142px;
+                left:-180px;
+            }
+
+            .card {
+                width:410px;
+                height:255px;
+                background-color: #eae2b7;
+                position: absolute;
+                top:6px;
+                left:20px;
+                box-shadow: -5px -5px 100px rgb(0 0 0 / 0.4);
+            }
+
+            .txt {
+                padding:30px;
+                font-size:16px;
+                color:#003049;
+            }
+
+            .content {
+                margin-left:20px;
+                margin-top:20px;
+                font-size: 20px;
+            }
+
+            .shadow {
+                width:495px;
+                height:38px;
+                background: rgb( 0 0 0 / 0.3);
+                position: absolute;
+                bottom:120px;
+                border-radius: 50%;
+                animation: shadow-size 3s linear infinite;
+            }
+
+            @keyframes shadow-size {
+                0%,100%{ 
+                    transform: scaleX(1);
+                }
+                50% {
+                    transform: scaleX(0.85);
+                }
+            }
+            .love {
+                color: #5f5ffd;
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+            <div class="valentine">
+                <div class="envelope"></div>
+                <div class="card">
+                    <div class="txt"></div>
+                </div>
+                <div class="front"></div>
+            </div>
+            <div class="shadow"></div>
+        </div>
+    </body>
+</html>
+<script>
+let timer
+let stop = true
+const el = document.querySelector(".txt");
+el.addEventListener('click', () => {
+    // 添加love.img图片，动画出现
+    const love = document.createElement('img');
+    love.src = './love.png';
+    love.style.width = '500px';
+    love.style.height = '500px';
+    love.style.position = 'absolute';
+    love.style.left = '50%';
+    love.style.top = '50%';
+    love.style.transform = 'translate(-50%,-50%)';
+    love.style.opacity = '0'; // 设置初始透明度为0
+    // 渐入
+    love.style.transition = 'all 1s';
+    setTimeout(() => {
+        love.style.opacity = '1';
+    }, 0);
+    love2 = document.querySelector(".valentine").appendChild(love);
+    love2.addEventListener('click', () => {
+        // 渐出
+        love2.style.transition = 'all 1s';
+        love2.style.opacity = '0';
+        love2.style.width = '0';
+        love2.style.height = '0';
+    });
+})
+document.querySelector(".valentine").addEventListener('mouseenter', () => {
+    if (stop && el.innerHTML.length === 0) {
+        const card = document.querySelector(".card");
+        card.style.transition = 'top 0.6s';
+        card.style.top = '-90px';
+        typewriter();
+    }
+});
+
+document.querySelector(".valentine").addEventListener('mouseleave', () => {
+    // 判断timer定时器是否结束
+    if (stop){
+        const card = document.querySelector(".card");
+        card.style.transition = 'top 0.6s';
+        card.style.top = '0';
+        el.innerHTML = ''; // 清空el.innerHTML
+    }
+});
+
+function typewriter(){
+    if (stop) {
+        stop = false
+        el.innerHTML = ''; // 清空el.innerHTML
+        const str = `博芸:
+        <div class="content">相恋<span class="love">100天快乐</span>!</div>
+            `;
+
+        let progress = 0;
+        timer = setInterval(() => {
+            const curr = str.substr(progress,1);
+            if(curr === "<"){
+                progress = str.indexOf(">",progress) + 1;
+            }else{
+                progress++;
+            }
+            console.log(el.innerHTML, progress)
+            el.innerHTML = str.substring(0,progress) + (progress & 1 ? "_ " : "");
+            if(progress > (str.length - 13)){
+                clearInterval(timer);
+                stop = true
+            }
+        }, 100);
+    }
+}
+
+</script>
