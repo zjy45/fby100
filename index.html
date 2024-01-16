@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <link rel="shortcut icon" href="爱心.svg" type="image/x-icon">
-        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+<!--        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />-->
+        <img class="word-cloud" src="love.png">
         <title>相恋100天</title>
         <style>
             body {
@@ -118,6 +119,15 @@
                 color: #5f5ffd;
                 text-decoration: underline;
             }
+            .word-cloud {
+                width: 500px;
+                height: 500px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                opacity: 0;
+            }
         </style>
     </head>
     <body>
@@ -139,27 +149,15 @@ let stop = true
 const el = document.querySelector(".txt");
 el.addEventListener('click', () => {
     // 添加love.img图片，动画出现
-    const love = document.createElement('img');
-    love.src = './love.png';
-    love.style.width = '500px';
-    love.style.height = '500px';
-    love.style.position = 'absolute';
-    love.style.left = '50%';
-    love.style.top = '50%';
-    love.style.transform = 'translate(-50%,-50%)';
-    love.style.opacity = '0'; // 设置初始透明度为0
-    // 渐入
-    love.style.transition = 'all 1s';
-    setTimeout(() => {
-        love.style.opacity = '1';
-    }, 0);
-    love2 = document.querySelector(".valentine").appendChild(love);
-    love2.addEventListener('click', () => {
+    const wordCloud = document.querySelector(".word-cloud");
+    wordCloud.style.transition = 'all 1s';
+    wordCloud.style.opacity = '1';
+    wordCloud.style.zIndex = '10';
+    wordCloud.addEventListener('click', () => {
         // 渐出
-        love2.style.transition = 'all 1s';
-        love2.style.opacity = '0';
-        love2.style.width = '0';
-        love2.style.height = '0';
+        wordCloud.style.transition = 'all 1s';
+        wordCloud.style.opacity = '0';
+        wordCloud.style.zIndex = '0';
     });
 })
 document.querySelector(".valentine").addEventListener('mouseenter', () => {
