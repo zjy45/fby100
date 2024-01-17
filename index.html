@@ -145,12 +145,12 @@
 <script>
 let timer
 let stop = true
-// function isMobile() {
-//     let flag = navigator.userAgent.match(
-//         /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-//     );
-//     return flag;
-// }
+function isMobile() {
+    let flag = navigator.userAgent.match(
+        /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+    );
+    return flag;
+}
 
 const el = document.querySelector(".txt");
 el.addEventListener('click', () => {
@@ -175,27 +175,27 @@ document.querySelector(".valentine").addEventListener('mouseenter', () => {
     }
 });
 
-// if (!isMobile()) {
-//     document.querySelector(".valentine").addEventListener('touchstart', () => {
-//         if (stop && el.innerHTML.length === 0) {
-//             const card = document.querySelector(".card");
-//             card.style.transition = 'top 0.6s';
-//             card.style.top = '-90px';
-//             typewriter();
-//         }
-//     });
-// }
-
-
-document.querySelector(".valentine").addEventListener('mouseleave', () => {
-    // 判断timer定时器是否结束
-    if (stop){
+document.querySelector(".valentine").addEventListener('touchstart', () => {
+    if (stop && el.innerHTML.length === 0) {
         const card = document.querySelector(".card");
         card.style.transition = 'top 0.6s';
-        card.style.top = '0';
-        el.innerHTML = ''; // 清空el.innerHTML
+        card.style.top = '-90px';
+        typewriter();
     }
 });
+
+
+if (!isMobile()) {
+    document.querySelector(".valentine").addEventListener('mouseleave', () => {
+        // 判断timer定时器是否结束
+        if (stop){
+            const card = document.querySelector(".card");
+            card.style.transition = 'top 0.6s';
+            card.style.top = '0';
+            el.innerHTML = ''; // 清空el.innerHTML
+        }
+    });
+}
 
 document.querySelector(".valentine").addEventListener('touchend', () => {
     // 判断timer定时器是否结束
