@@ -154,17 +154,19 @@ function isMobile() {
 
 const el = document.querySelector(".txt");
 el.addEventListener('click', () => {
-    // 添加love.img图片，动画出现
-    const wordCloud = document.querySelector(".word-cloud");
-    wordCloud.style.transition = 'all 1s';
-    wordCloud.style.opacity = '1';
-    wordCloud.style.zIndex = '10';
-    wordCloud.addEventListener('click', () => {
-        // 渐出
+    if (el.innerHTML.length > 5) {
+        // 添加love.img图片，动画出现
+        const wordCloud = document.querySelector(".word-cloud");
         wordCloud.style.transition = 'all 1s';
-        wordCloud.style.opacity = '0';
-        wordCloud.style.zIndex = '0';
-    });
+        wordCloud.style.opacity = '1';
+        wordCloud.style.zIndex = '10';
+        wordCloud.addEventListener('click', () => {
+            // 渐出
+            wordCloud.style.transition = 'all 1s';
+            wordCloud.style.opacity = '0';
+            wordCloud.style.zIndex = '0';
+        });
+    }
 })
 document.querySelector(".valentine").addEventListener('mouseenter', () => {
     if (stop && el.innerHTML.length === 0) {
